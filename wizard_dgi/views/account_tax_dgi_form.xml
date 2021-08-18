@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_account_tax_dgi_form">
+        <field name="model">account.tax</field>
+        <field name="name">view.account.tax.dgi.form</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="code_igv_dgi" />
+                <field name="is_extent" />
+	        </xpath>
+        </field>
+    </record>
+</odoo>

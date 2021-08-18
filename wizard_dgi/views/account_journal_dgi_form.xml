@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_account_journal_dgi_form">
+            <field name="model">account.journal</field>
+            <field name="name">view.account.journal.dgi.form</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="form_2181_dgi" />
+                    <field name="sign" />
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

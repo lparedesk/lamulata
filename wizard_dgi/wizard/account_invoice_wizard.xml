@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+   <data>
+       <record id="view_wizard_dgi_form" model="ir.ui.view">
+                <field name="name">Wizard Dgi Form</field>
+                <field name="model">account.invoice.dgi</field>
+                <field name="arch" type="xml" >
+                    <form>
+                        <header>
+                            <field name="state" widget="statusbar" clickable="True"/>
+                        </header>
+
+                        <group>
+                            <group>
+                                <field name="print_extra" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="date" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                <field name="txt_filename" invisible="1"/>
+                                <field name="txt_binary" filename="txt_filename" nolabel="1" attrs="{'invisible': [('state', '=', 'stop')]}" />
+                            </group>
+                            <group>
+                                <field name="period" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                            </group>
+                        </group>
+                        <footer>
+                        <button class="btn btn-sm btn-primary"
+                            name="generate_report" string="Generar reporte" type="object" attrs="{'invisible': [('state', '=', 'done')]}"/>
+                        <button class="btn btn-sm btn-default"
+                            special="cancel" string="Cerrar"/>
+                </footer>
+                    </form>
+                </field>
+        </record>
+
+       <record id="action_dgi_wizard" model="ir.actions.act_window">
+            <field name="name">Action Wizard Dgi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.invoice.dgi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_wizard_dgi_form"/>
+            <field name="target">new</field>
+        </record>
+
+       <menuitem id="report_sale_book_demo_item" name="Reporte DGI" action="action_dgi_wizard" parent="account.menu_finance" sequence="25"/>
+   </data>
+</openerp>
