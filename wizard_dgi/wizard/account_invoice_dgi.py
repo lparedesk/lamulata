@@ -1,11 +1,8 @@
-
-from datetime import date, datetime
-import xlwt
 import base64
 import os
 import time
 from odoo import models, fields
-from odoo import api
+
 from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 
 
@@ -41,18 +38,19 @@ class SaleBookReport(models.TransientModel):
 
     txt_binary = fields.Binary('Form 2181 DGI', readonly=True)
 
-    @api.multi
     def generate_report(self):
         str_fin_linea = '\n'
         str_fin = ';'
         str_ruta = ''
         str_nombre_archivo = ''.join(['BETA', ".txt"])
         contend = ''
+
         account_move_line = self.env['account.move.line'].search([
             ('move_id.date', '>=', self.period.date_start),
             ('move_id.date', '<=', self.period.date_end),
             ('move_id.journal_id.form_2181_dgi', '=', True),
         ])
+        #aml_list=[1] # caso ventas
         #aml_list=[13,14,15,16,17,18] # caso ventas
         #aml_list=[34,35,36,37,38,39] # caso compras con exento
         #aml_list=[40,41,42,43,44,45] # caso Nota de credito venta
@@ -63,6 +61,7 @@ class SaleBookReport(models.TransientModel):
             account_move_line = self.env['account.move.line'].browse(aml_list)
         move_name=''
         for aml in account_move_line:
+            company_vat = aml.move_id.company_id.vat or ''
             if aml.partner_id.vat:
                 str_linea_1 = ''
                 if self.print_extra:
@@ -77,7 +76,7 @@ class SaleBookReport(models.TransientModel):
                             [
                                 str_linea_1,
                                 move_name,
-                                aml.move_id.company_id.vat,
+                                company_vat,
                                 ';',
                                 '02181',
                                 ';',
@@ -124,7 +123,6 @@ class SaleBookReport(models.TransientModel):
             'target': 'new',
         }
 
-    @api.multi
     def _get_total_line(self, aml):
         amount=0
         total_lenght = 12
@@ -161,7 +159,6 @@ class SaleBookReport(models.TransientModel):
                 amount = str(amount).zfill(total_lenght)
         return amount
 
-    @api.multi
     def _get_tax_code(self, aml):
         code_tax = ''
         if aml.tax_line_id:

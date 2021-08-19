@@ -35,8 +35,8 @@
             <field name="name">Action Wizard Dgi</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">account.invoice.dgi</field>
-            <field name="view_type">form</field>
             <field name="view_mode">form</field>
+           <field name="groups_id" eval="[(6, 0, [ref('account.group_account_user'), ref('base.group_system')])]"/>
             <field name="view_id" ref="view_wizard_dgi_form"/>
             <field name="target">new</field>
         </record>

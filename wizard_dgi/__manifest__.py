@@ -2,7 +2,7 @@
 {
     "name": "Formulario 2181 DGI",
     'summary': "Genera formulario 2181 segun DGI",
-    'version': '12.0.1.1',
+    'version': '14.0.1.1',
     "category": "Localizacion Uruguay",
     "author": "Kreilabs Team",
     'website': 'www.kreilabs.com',
@@ -13,6 +13,7 @@
             'date_range'
     ],
     'data': [
+        'security/ir.model.access.csv',
         'wizard/account_invoice_wizard.xml',
         'views/account_journal_dgi_form.xml',
         'views/account_tax_dgi_form.xml'
